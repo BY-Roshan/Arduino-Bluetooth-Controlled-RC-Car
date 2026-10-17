@@ -1,0 +1,14 @@
+## 📌 Complete Wiring Pinout: Bluetooth-Controlled Car
+
+| Component | Module Pin | Arduino Uno Pin | Description |
+| :--- | :--- | :--- | :--- |
+| **L293D Motor Driver** | `IN1` | Pin 3 | Left motor forward control |
+| | `IN2` | Pin 4 | Left motor backward control |
+| | `IN3` | Pin 5 | Right motor forward control |
+| | `IN4` | Pin 7 | Right motor backward control |
+| **HC-05 / HC-06 Bluetooth** | `VCC` | 5V | Power supply |
+| | `GND` | GND | Common ground |
+| | `TXD` | Pin 10 | SoftwareSerial RX (Receives from Arduino TX) |
+| | `RXD` | Pin 11 | SoftwareSerial TX (Receives commands from phone) |
+| **External Battery Pack** | Battery (+) | Motor Driver `VCC` / Vin | Powers motors and Arduino |
+| | Battery (-) | Common `GND` | **Must share a common ground with Arduino!** |
