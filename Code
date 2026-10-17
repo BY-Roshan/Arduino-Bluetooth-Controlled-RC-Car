@@ -1,0 +1,63 @@
+#include <SoftwareSerial.h>
+
+// Motor Driver Pins
+const int IN1 = 3; // Left Forward
+const int IN2 = 4; // Left Backward
+const int IN3 = 5; // Right Forward
+const int IN4 = 7; // Right Backward
+
+// Bluetooth Pins
+const int BT_RX = 10; 
+const int BT_TX = 11;
+
+SoftwareSerial bluetooth(BT_RX, BT_TX);
+
+void setup() {
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  Serial.begin(9600);
+  bluetooth.begin(9600);
+  Serial.println("Bluetooth RC Car Ready.");
+}
+
+void loop() {
+  if (bluetooth.available() > 0) {
+    char cmd = bluetooth.read();
+    
+    switch (cmd) {
+      case 'F': moveForward(); break;
+      case 'B': moveBackward(); break;
+      case 'L': turnLeft(); break;
+      case 'R': turnRight(); break;
+      case 'S': stopCar(); break;
+    }
+  }
+}
+
+void moveForward() {
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+}
+
+void moveBackward() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+}
+
+void turnLeft() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+}
+
+void turnRight() {
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+}
+
+void stopCar() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, LOW);
+}
